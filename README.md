@@ -1,31 +1,5 @@
 # career-domain
 
-```font-jua
-```
-
-```innerHtml
-<style>
-.tui-editor-contents p {
-    line-height: 1.5 !important;
-}
-
-.tui-editor-contents ul {
-    padding-left: 25px !important;
-}
-
-.tui-editor-contents .task-list-item {
-    margin-bottom: 5px;
-}
-
-.tui-editor-contents .task-list-item ul {
-    margin-top: 5px !important;
-}
-
-.tui-editor-contents .google-form-container {
-    padding-bottom: 75% !important;
-}
-</style>
-```
 # 요구사항
 - [ ] 자신의 서비스 시스템의 Domain Model을 작성한다.
     - [ ] Local 환경(혹은 Test환경)에서 Reverse Engineering을 이용하여 DB ERD문서를 생성한다.
