@@ -17,7 +17,6 @@
     - 아래의 예시와 같은 형태의 문서를 작성한다.
 <center><img src="https://nextstep-storage.s3.ap-northeast-2.amazonaws.com/46250f7159ab42fd8ffaef7dac3f5f04" width="60%"></center>
 
-## TIP
 ### ERD를 활용한 도메인 모델 작성 가이드라인
 #### 1. 도메인 이해:
 - 비즈니스나 조직의 도메인에 대한 깊은 이해를 얻기 위해 도메인 전문가와 소통합니다.
