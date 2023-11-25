@@ -72,8 +72,6 @@
 1. DB Reverse engineering을 위한 Mysql 공식 문서 : [Reverse Engineering](https://dev.mysql.com/doc/workbench/en/wb-reverse-engineer-live.html)
 2. 도메인 모델 작성을 위한 UML 문법 (UML도 언어입니다.) : [UML](https://www.ictdemy.com/software-design/uml/uml-domain-model)
 3. 도메인 모델 작성 방법 Tip 
- ```innerHtml
-<iframe src="https://nextstep-storage.s3.ap-northeast-2.amazonaws.com/82ca334e15da46a5a6999d4ecb90e201" style="width:70%; height:500px;"></iframe>
-```
+
 
 
