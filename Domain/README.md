@@ -63,7 +63,7 @@
         - 속도 관점에서 물리적인 relation은 가급적 stage환경이나 dev환경에서만 적용하면 좋다.
 3. 이러한 이해를 가지고 추상화된 Domain modeling을 진행 한다. 
     - 보안 적인 이슈가 되지 않도록 추상화된 modeling을 진행한다.
-4. 작성된 Domain model 문서를 git(<span style="color:red">링크필요</span>)에 올리고 review를 진행 한다. 
+4. 작성된 Domain model 문서를 git에 올리고 review를 진행 한다. 
     - Git review는 [링크](https://github.com/next-step/nextstep-docs/tree/master/codereview)를 참고해서 진행 한다.
     
     
