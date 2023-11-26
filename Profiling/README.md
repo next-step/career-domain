@@ -33,6 +33,19 @@ OQcyAtukps4
 
 ## Sequence flow
 
+```mermaid
+sequenceDiagram
+    participant Alice
+    participant Bob
+    Alice->>John: Hello John, how are you?
+    loop Healthcheck
+        John->>John: Fight against hypochondria
+    end
+    Note right of John: Rational thoughts <br/>prevail!
+    John-->>Alice: Great!
+    John->>Bob: How about you?
+    Bob-->>John: Jolly good!
+```
 
 ![sequencediagram.png](https://nextstep-storage.s3.ap-northeast-2.amazonaws.com/e924aa7f146b45da9c4c7076916b4094)
 
