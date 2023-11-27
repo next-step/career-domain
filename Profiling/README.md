@@ -27,7 +27,7 @@
     - 예시 : ![sequnceFlow.png](https://nextstep-storage.s3.ap-northeast-2.amazonaws.com/6445f88ad50b4fd5b2a1c17a4c77f220)
 1. 작성된 Sequence flow 문서를 [GitHub](https://github.com/next-step/career-domain/)의 Profiling 폴더에 올리고 review를 진행한다.
     - 작성된 파일은 png, gif, jpg 등의 이미지 파일형식이나 pdf 방식으로 올려도 되고 [Mermaid](https://mermaid.js.org/#/) 을 활용한 마크다운 문서로 올려도 된다. 
-    - 파일명은 sequenceFlow-{gitID}.png 같은 형식으로 upload해주세요.
+    - <b>파일명은 sequenceFlow-{gitID}.png</b> 같은 형식으로 upload해주세요.
     - Git review는 [링크](https://github.com/next-step/nextstep-docs/tree/master/codereview)를 참고해서 진행 한다.
 1. SpringData @Transactional annotation에 대한 Profiling을 진행 한다.
     - 꼭 Profiling을 통해서 진행 하지 않아도 되며 직접 소스를 보거나 Debugg 모드를 활용 할 해도 상관 없다.
@@ -35,7 +35,7 @@
 1. @Transactional annotation에 대한 sequence digram을 작성한다.
     - 작성된 Sequence flow 문서를 [GitHub](https://github.com/next-step/career-domain/)의 Profiling 폴더에 올리고 review를 진행한다.
     - 작성된 파일은 png, gif, jpg 등의 이미지 파일형식이나 pdf 방식으로 올려도 되고 [Mermaid](https://mermaid.js.org/#/) 을 활용한 마크다운 문서로 올려도 된다. 
-    - 파일명은 sequenceFlow-{gitID}.png 같은 형식으로 upload해주세요.
+    - <b>파일명은 trnansactional-{gitID}.png</b> 같은 형식으로 upload해주세요.
     - Git review는 [링크](https://github.com/next-step/nextstep-docs/tree/master/codereview)를 참고해서 진행 한다.
 
 
