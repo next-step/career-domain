@@ -6,16 +6,40 @@
     - [ ] 생성된 ERD를 가지고 본인의 서비스에 대한 도메인 모델을 작성한다.
 
 
+## 🚀미션(해야할 일)
+```alert-error-border
+민감한 정보가 포함된 ERD는 본인 학습용으로만 사용하고 외부에 노출 되지 않도록 주의 하세요!
+```
 
-# 도메인 모델
+### 도메인 모델 작성(거시적인 접근)
+1. 자신의 서비스 시스템의 DB를 리버스 엔지니어링으로 ERD를 만들어 본다. (이미 생성된 문서가 있다면 최신화하여 활용)
+    - MySQL workbench를 기준으로 실습해본다.
+    - local환경의 data를 이용한다. (절대 real DB를 하지 않도록 한다.)
+    - 자료는 보안이 중요하기 때문에 본인만 사용하고 회사내에만 공유 하도록 한다.
+    - 참고자료 
+        -  [Reverse Engineering](https://dev.mysql.com/doc/workbench/en/wb-reverse-engineer-live.html) : MySQL 공식 Reverse Engineering 가이드 문서
+        -  예시: ![OrderERD.png](https://nextstep-storage.s3.ap-northeast-2.amazonaws.com/b889ca18a4384db0a5656145dde55839)
+2. 생성된 ERD를 보고 데이터의 관계나 의존성을 확인하고 서비스에 대한 이해를 높인다.
+    - relation은 정확히 그려 볼 수 있도록 한다.
+    - 특히 추가되거나 flag 같은 속성은 분기를 하는 속성일 가능성이 높으므로 눈여겨 보는것이 좋다.
+        - 이런 속성의 경우 개발을 할때 분기 조건이 나거나 특정 validation을 하는 속성일 가능성이 높아 이런 내용을 놓쳤을 때 bug가 발생할 가능성이 높다.
+    - 참고자료
+        -  [UML](https://www.ictdemy.com/software-design/uml/uml-domain-model) : domain modeling uml 가이드
+    - Tip 
+        - 속도 관점에서 물리적인 relation은 가급적 stage환경이나 dev환경에서만 적용하면 좋다.
+        - 도메인 모델은 가급적 거시적인 관점에서 볼 수 있도록 최대한 확장해서 그릴 수 있도록 한다. (경력이 쌓이면서 더 넓게 그릴 수 있어야 되며 종국에는 회사전체 시스템의 도메인 모델을 작성 할 수 있어야 한다.)
+3. 이러한 이해를 가지고 추상화된 Domain modeling을 진행 한다. 
+    - 보안 적인 이슈가 되지 않도록 추상화된 modeling을 진행한다.
+    - UML 툴은 본인이 편한 것을 사용하여 최종 이미지 파일 형식으로 출력 할 수 있도록 한다.
+    - 형식에 너무 집착하지 말고 처음 보는 사람이 봤을 때 이해 할수 있도록 그려보자.
+        - 핵심 도메인 위주로 작성 한다.
+        - 주문하기, 결제하기 같은 relation이나 flow가 있다면 같이 표현해 보도록 한다.
+    - 예시1 : ![OrderDomain.png](https://nextstep-storage.s3.ap-northeast-2.amazonaws.com/0c24abd56e5a41429d2f6c52cb0fe0a9) 
+4. 작성된 Domain model 문서를 [GitHub](https://github.com/next-step/career-domain)의 Domain 폴더에 올리고 review를 진행 한다. 
+    - 작성한 Domain model은 png, gif, jpg등 이미지 파일 형식이나 pdf 파일 형식으로 올린다.
+    - <b>파일명은 domainModel-{gitID}.png 형식으로 upload 해주세요</b>
+    - Git review는 [링크](https://github.com/next-step/nextstep-docs/tree/master/codereview)를 참고해서 진행 한다.
 
-## Domain model
-- 도메인 모델은 추상화를 하여서도 작성할 수 있고 사실적 표현으로도 작성할 수 있으나 아래 기준으로 작성해보자
-    - 핵심 Entity는 작성한다.
-    - Entity의 attribute는 최소화 해서 작성한다.
-    - Relation과 의존 관계는작성한다.
-    - 아래의 예시와 같은 형태의 문서를 작성한다.
-<center><img src="https://nextstep-storage.s3.ap-northeast-2.amazonaws.com/46250f7159ab42fd8ffaef7dac3f5f04" width="60%"></center>
 
 ### ERD를 활용한 도메인 모델 작성 가이드라인
 #### 1. 도메인 이해:
@@ -45,33 +69,10 @@
 - ERD와 도메인 모델은 프로젝트의 특정 요구사항과 팀의 선호도에 따라 다양하게 변형될 수 있습니다.
 - 지속적인 소통과 수정을 통해 모델을 개선하고 정확성을 확보하세요.
 
-
-## 🚀미션(해야할 일)
-
-1. 자신의 서비스 시스템의 DB를 리버스 엔지니어링으로 ERD를 만들어 본다. (이미 생성된 문서가 있다면 최신화하여 활용)
-    - MySQL workbench를 기준으로 실습해본다.
-    - local환경의 data를 이용한다. (절대 real DB를 하지 않도록 한다.)
-    - 자료는 보안이 중요하기 때문에 본인만 사용하고 회사내에만 공유 하도록 한다.
-    - 참고자료 
-        -  [Reverse Engineering](https://dev.mysql.com/doc/workbench/en/wb-reverse-engineer-live.html)
-2. 생성된 ERD를 보고 데이터의 관계나 의존성을 확인하고 서비스에 대한 이해를 높인다.
-    - relation은 정확히 그려 볼 수 있도록 한다.
-    - 특히 추가되거나 flag 같은 속성은 분기를 하는 속성일 가능성이 높으므로 눈여겨 보는것이 좋다.
-    - 참고자료
-        -  [UML](https://www.ictdemy.com/software-design/uml/uml-domain-model)
-    - Tip 
-        - 속도 관점에서 물리적인 relation은 가급적 stage환경이나 dev환경에서만 적용하면 좋다.
-3. 이러한 이해를 가지고 추상화된 Domain modeling을 진행 한다. 
-    - 보안 적인 이슈가 되지 않도록 추상화된 modeling을 진행한다.
-4. 작성된 Domain model 문서를 git에 올리고 review를 진행 한다. 
-    - Git review는 [링크](https://github.com/next-step/nextstep-docs/tree/master/codereview)를 참고해서 진행 한다.
-    
-    
     
 # 참고자료
 1. DB Reverse engineering을 위한 Mysql 공식 문서 : [Reverse Engineering](https://dev.mysql.com/doc/workbench/en/wb-reverse-engineer-live.html)
 2. 도메인 모델 작성을 위한 UML 문법 (UML도 언어입니다.) : [UML](https://www.ictdemy.com/software-design/uml/uml-domain-model)
 3. 도메인 모델 작성 방법 Tip 
-
 
 
