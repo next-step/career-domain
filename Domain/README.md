@@ -1,9 +1,9 @@
 # career-domain
 > 작성한 Domain model은 png, gif, jpg, pdf 파일 형식으로 파일명은 domainModel-{gitID}.pdf 형식으로 upload 해주세요
 # 요구사항
-- [ ] 자신의 서비스 시스템의 Domain Model을 작성한다.
-    - [ ] Local 환경(혹은 Test환경)에서 Reverse Engineering을 이용하여 DB ERD문서를 생성한다.
-    - [ ] 생성된 ERD를 가지고 본인의 서비스에 대한 도메인 모델을 작성한다.
+- [x] 자신의 서비스 시스템의 Domain Model을 작성한다.
+    - [x] Local 환경(혹은 Test환경)에서 Reverse Engineering을 이용하여 DB ERD문서를 생성한다.
+    - [x] 생성된 ERD를 가지고 본인의 서비스에 대한 도메인 모델을 작성한다.
 
 
 ## 🚀미션(해야할 일)
