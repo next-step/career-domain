@@ -1,5 +1,5 @@
 # career-domain
-> 작성한 Domain model은 png, gif, jpg, pdf 파일 형식으로 파일명은 domainModel-{gitID}.pdf 형식으로 upload 해주세요
+> 작성한 Domain model은 png, gif, jpg, pdf 파일 형식으로 파일명은 domainModel-{gitID}.md 형식으로 upload 해주세요
 # 요구사항
 - [ ] 자신의 서비스 시스템의 Domain Model을 작성한다.
     - [ ] Local 환경(혹은 Test환경)에서 Reverse Engineering을 이용하여 DB ERD문서를 생성한다.
@@ -112,8 +112,9 @@
         Delivery-->|상품정보|Product
     ```
 4. 작성된 Domain model 문서를 [GitHub](https://github.com/next-step/career-domain)의 Domain 폴더에 올리고 review를 진행 한다. 
-    - 작성한 Domain model은 png, gif, jpg등 이미지 파일 형식이나 pdf 파일 형식으로 올린다.
-    - <b>파일명은 domainModel-{gitID}.png 형식으로 upload 해주세요</b>
+    - 작성한 Domain model은 가급적 markdown 파일 형식으로 작성한다.
+    - 별도의 모델링 툴을 사용한 경우 png, gif, jpg등 이미지 파일 형식이나 pdf 파일 형식으로 올린다.
+    - <b>파일명은 domainModel-{gitID}.md 형식으로 upload 해주세요</b>
     - Git review는 [링크](https://github.com/next-step/nextstep-docs/tree/master/codereview)를 참고해서 진행 한다.
 
 
