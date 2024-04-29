@@ -34,7 +34,58 @@
     - 형식에 너무 집착하지 말고 처음 보는 사람이 봤을 때 이해 할수 있도록 그려보자.
         - 핵심 도메인 위주로 작성 한다.
         - 주문하기, 결제하기 같은 relation이나 flow가 있다면 같이 표현해 보도록 한다.
-    - 예시1 : ![OrderDomain.png](https://nextstep-storage.s3.ap-northeast-2.amazonaws.com/0c24abd56e5a41429d2f6c52cb0fe0a9) 
+    - 예시1 : ![OrderDomain.png](https://nextstep-storage.s3.ap-northeast-2.amazonaws.com/0c24abd56e5a41429d2f6c52cb0fe0a9)
+    ```mermaid
+    flowchart LR
+        Cart(장바구니)
+        OrderSheet(주문서)
+        Order(주문)
+        DeliveryAddress(배송지)
+        OrderDetail(주문상세)
+        Payment(결제)
+        PaymentMethod(결제수단)
+        FundingSource(원결제)
+        Card(카드결제)
+        Bank(계좌이체)
+        VitualAccount(가상계좌)
+        Phone(휴대폰결제)
+        EasyPay(간편결제)
+        Point(포인트)
+        Coupon(쿠폰)
+        Cancel(취소)
+        Refund(환불)
+        Propotentional(안분)
+        Cart-->|주문하기|OrderSheet
+        OrderSheet---|주문상태|Order
+        Order---|주문상세|OrderDetail
+        OrderSheet---|배송지|DeliveryAddress
+        subgraph 주문상태
+        direction TB
+        Order-->|결제|Payment
+        Order-->|취소|Cancel
+        Order-->|환불|Refund
+        end
+        Payment-->|환불|Refund
+        Payment ---|결제수단|PaymentMethod
+        subgraph 결제수단
+        direction TB
+        PaymentMethod-->|원결제|FundingSource
+        PaymentMethod-->|쿠폰|Coupon
+        PaymentMethod-->|포인트|Point
+            subgraph 원결제
+            direction TB
+            Card-->|카드결제|FundingSource
+            Bank-->|계좌이체|FundingSource
+            VitualAccount-->|가상계좌|FundingSource
+            Phone-->|휴대폰결제|FundingSource
+            EasyPay-->|간편결제|FundingSource
+            end
+        end
+        Refund-->|안분로직|Propotentional
+        Propotentional---FundingSource
+        Propotentional---Point
+        Propotentional---Coupon
+    ```
 4. 작성된 Domain model 문서를 [GitHub](https://github.com/next-step/career-domain)의 Domain 폴더에 올리고 review를 진행 한다. 
     - 작성한 Domain model은 png, gif, jpg등 이미지 파일 형식이나 pdf 파일 형식으로 올린다.
     - <b>파일명은 domainModel-{gitID}.png 형식으로 upload 해주세요</b>
