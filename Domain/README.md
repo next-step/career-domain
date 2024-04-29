@@ -34,7 +34,7 @@
     - 형식에 너무 집착하지 말고 처음 보는 사람이 봤을 때 이해 할수 있도록 그려보자.
         - 핵심 도메인 위주로 작성 한다.
         - 주문하기, 결제하기 같은 relation이나 flow가 있다면 같이 표현해 보도록 한다.
-    - 예시1 : ![OrderDomain.png](https://nextstep-storage.s3.ap-northeast-2.amazonaws.com/0c24abd56e5a41429d2f6c52cb0fe0a9)
+    - 예시1 : 주문 도메인 다이어그램
     ```mermaid
     flowchart LR
         Cart(장바구니)
@@ -85,6 +85,31 @@
         Propotentional---FundingSource
         Propotentional---Point
         Propotentional---Coupon
+    ```
+    - 예시2 : 커머스 도메인 다이어그램
+    ```mermaid
+    flowchart LR
+        PDP(상품 Page)
+        Sattlement(정산)
+        Product(상품)
+        Order(주문)
+        CRM(고객센터-MyPage)
+        Delivery(배송)
+        User(회원)
+        Pay(결제)
+        PDP-->Product
+        Sattlement-->|상품종류|Product
+        Sattlement-->|주문/취소상태|Order
+        Sattlement-->|배송상태|Delivery
+        CRM-->|주문내역|Order
+        CRM-->|배송추적|Delivery
+        CRM-->|결제수단확인|Pay
+        Product-->|판매수량|Order
+        Order-->|상품정보|Product
+        Order-->|회원정보|User
+        Order-->|결제요청|Pay
+        Delivery-->|배송지정보|Order
+        Delivery-->|상품정보|Product
     ```
 4. 작성된 Domain model 문서를 [GitHub](https://github.com/next-step/career-domain)의 Domain 폴더에 올리고 review를 진행 한다. 
     - 작성한 Domain model은 png, gif, jpg등 이미지 파일 형식이나 pdf 파일 형식으로 올린다.
