@@ -50,7 +50,7 @@ flowchart LR
 flowchart LR
     Admin([관리자])
     User([사용자])
-    BizZone(구역)
+    BizZone(정비구역)
     Union(조합)
     Member(일반가입자)
     UnionMember(조합가입자)
@@ -66,7 +66,7 @@ flowchart LR
     Agreement(동의서)
     Payment(결제)
 
-    Admin-.->|구역등록|BizZone
+    Admin-.->|정비구역 등록|BizZone
     Admin-.->|비용설정|Payment
     Admin-.->|조합관리|Union
 
