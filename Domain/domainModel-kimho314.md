@@ -7,7 +7,7 @@ flowchart LR
         OWNER(화주)
         DRIVER(차주)
         ORDER(주문)
-        DRIVING_VEHICLE(차량 운행)
+        DRIVING_VEHICLE(운행)
         Payment(결제)
         PaymentMethod(결제수단)
         FundingSource(원결제)
@@ -56,25 +56,23 @@ flowchart LR
 
 ```mermaid
 flowchart LR
-        PDP(상품 Page)
+        OWNER(화주 웹)
+        DRIVER(차주 앱)
         Sattlement(정산)
-        Product(상품)
         Order(주문)
-        CRM(고객센터-MyPage)
-        Delivery(배송)
-        User(회원)
+        Pricing(요금)
+        ADMIN(어드민 웹)
+        DRIVING_VEHICLE(운행)
         Pay(결제)
-        PDP-->Product
-        Sattlement-->|상품종류|Product
-        Sattlement-->|주문/취소상태|Order
-        Sattlement-->|배송상태|Delivery
-        CRM-->|주문내역|Order
-        CRM-->|배송추적|Delivery
-        CRM-->|결제수단확인|Pay
-        Product-->|판매수량|Order
-        Order-->|상품정보|Product
-        Order-->|회원정보|User
-        Order-->|결제요청|Pay
-        Delivery-->|배송지정보|Order
-        Delivery-->|상품정보|Product
+        OWNER-->|주문 생성|ORDER
+        ORDER-->|요금정보|Pricing
+        DRIVER-->|배차요청|ORDER
+        DRIVING_VEHILCE-->|상/하차 일시 및 장소|ORDER
+        ADMIN-->|운행 추적|DRIVING_VEHICLE
+        ADMIN-->|주문 내역|ORDER
+        ADMIN-->|주문 취소|Order
+        ADMIN-->|결제 내역 확인|Pay
+        ORDER-->|결제요청|Pay
+        Sattlement-->|주문 및 요금 정보|Order
+        Sattlement-->|운행 상태|DRIVING_VEHICLE
 ```
