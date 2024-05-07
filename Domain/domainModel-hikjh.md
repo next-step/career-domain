@@ -2,6 +2,7 @@
 ## 상세 도메인 다이어 그램
 ```mermaid
 flowchart LR
+%% POSTPIA, 공공데이터 포털 -> Third Party
     Union(조합)
     UnionMember(조합가입자)
     UnionRegister(조합원)
@@ -21,8 +22,6 @@ flowchart LR
     
     Union-->|요금 충전|ServicePayment
     Post-...->|비용 결제| ServicePayment
-
-    
 ```
 ## 추상화 도메인 다이어그램
 ```mermaid
@@ -40,15 +39,17 @@ flowchart LR
 
     User-->|회원 가입|Member
     Member-->|조합 가입|Union
+    Member-->|조합 개설|Union
     Union-->|가입 승인|UnionMember
     UnionMember-->|명부 등록|UnionRegister
     UnionMember-->|우편 발송|Post
     UnionMember-->|문자 발송|Text
-    UnionMember-->|자료 발급|DataOrder
+    UnionMember-->설|자료 발급|DataOrder
     UnionMember-->|총회 개설|Meet
 
     Union-->|요금 충전/환불|ServicePayment
     Post & Text & DataOrder & Meet -...->|비용 결제| ServicePayment
+    
 ```
 ## 상세 도메인(우편발송) ERD
 ```mermaid
