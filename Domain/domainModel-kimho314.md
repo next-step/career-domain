@@ -25,7 +25,6 @@ flowchart LR
         Order-->|배차중,배차완료,이동중,운송완료|Order_Status
         Driver-->|배차요청|Driving_Vehicle
         Driving_Vehicle-->|배차요청,배차완료,이동중,운송완료|Driving_Vehicle_Status
-        Payment-->|운송완료|Driving_Vehicle_Status
         Payment-->|운송완료|Order_Status
         Payment ---|결제수단|PaymentMethod
         subgraph 결제수단
