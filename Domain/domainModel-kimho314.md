@@ -2,49 +2,31 @@
 
 ## 상세 도메인 다이어 그램
 
+### 배차에 대한 상세 도메인 다이어 그램
+
 ```mermaid
 flowchart LR
-        OWNER(화주)
-        DRIVER(차주)
-        ORDER(주문)
-        OWNER_STATUS(주문상태)
-        DRIVING_VEHICLE(운행)
-        DRIVING_VEHICLE_STATUS(운행상태)
+        Owner(화주)
+        Driver(차주)
+        Order(주문)
+        Order_Status(주문상태)
+        Driving_Vehicle(운행)
+        Driving_Vehicle_Status(운행상태)
         Payment(결제)
         PaymentMethod(결제수단)
         FundingSource(원결제)
         Card(카드결제)
         CreditPayment(신용결제)
-        ROUTING(라우팅)
-        PRICING(요금)
-        OWNER-->|주문하기|ORDER
-        ROUTING-->|예상경로및운행거리|ORDER
-        PRICING-->|요금산출|ORDER
-        subgraph 주문상태
-        direction TB
-        ORDER-->|배차중|OWNER_STATUS
-        ORDER-->|배차임시요청|OWNER_STATUS
-        ORDER-->|배차확정|OWNER_STATUS
-        ORDER-->|배차완료|OWNER_STATUS
-        ORDER-->|상차지이동중|OWNER_STATUS
-        ORDER-->|상차지도착|OWNER_STATUS
-        ORDER-->|하차지이동중|OWNER_STATUS
-        ORDER-->|운송완료|OWNER_STATUS
-        ORDER-->|결제|Payment
-        end
-        DRIVER-->|배차요청|ORDER
-        DRIVER-->|배차요청|DRIVING_VEHICLE
-        subgraph 운행상태
-        direction TB
-        DRIVING_VEHICLE-->|배차요청|DRIVING_VEHICLE_STATUS
-        DRIVING_VEHICLE-->|배차대기|DRIVING_VEHICLE_STATUS
-        DRIVING_VEHICLE-->|배차확정|DRIVING_VEHICLE_STATUS
-        DRIVING_VEHICLE-->|상차지이동중|DRIVING_VEHICLE_STATUS
-        DRIVING_VEHICLE-->|상차지도착|DRIVING_VEHICLE_STATUS
-        DRIVING_VEHICLE-->|하차지이동중|DRIVING_VEHICLE_STATUS
-        DRIVING_VEHICLE-->|운송완료|DRIVING_VEHICLE_STATUS
-        DRIVING_VEHICLE-->|결제|Payment
-        end
+        Routing(라우팅)
+        Pricing(요금)
+        Owner-->|주문생성|Order
+        Order-->|예상경로및운행거리계산|Routing
+        Order-->|요금계산|Pricing
+        Order-->|배차중,배차완료,이동중,운송완료|Order_Status
+        Driver-->|배차요청|Driving_Vehicle
+        Driving_Vehicle-->|배차요청,배차완료,이동중,운송완료|Driving_Vehicle_Status
+        Payment-->|운송완료|Driving_Vehicle_Status
+        Payment-->|운송완료|Order_Status
         Payment ---|결제수단|PaymentMethod
         subgraph 결제수단
         direction TB
@@ -52,7 +34,7 @@ flowchart LR
             subgraph 원결제
             direction TB
             Card-->|카드결제|FundingSource
-            CreditPayment-->|카드결제|FundingSource
+            CreditPayment-->|신용결제|FundingSource
             CreditPayment(신용결제)
             end
         end
