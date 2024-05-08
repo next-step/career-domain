@@ -3,10 +3,10 @@
 ```mermaid
 flowchart LR
     Meet(총회)
-    Electronic(전자투표)
+    Info(총회정보)
     Agenda(안건)
     UnionRegister(조합원)
-    Participant(선거인)
+    Elector(선거인)
     Agent(대리인)
     Payment(결제)
     VoteStatus(투표현황)
@@ -20,13 +20,13 @@ flowchart LR
     VoteDoc(투표내역문서)
     VoteTotal(총투표결과)
     
-    Meet-->|총회개설|Electronic
-    Electronic-->|투표안건|Agenda
-    Agenda-->|선거인선택|UnionRegister
-    UnionRegister-->|선거인확정|Participant
-    UnionRegister-->|대리인확인|Agent
-    Agent-->|선거인확정|Participant
-    Participant-->|총회비용|Payment
+    Meet-->|생성|Info
+    Info-->|투표안건|Agenda
+    Agenda-->|선거인 선택|UnionRegister
+    UnionRegister-->|선거인 확정|Elector
+    UnionRegister-->|대리인 확인|Agent
+    Agent-->|선거인 확정|Elector
+    Elector-->|총회비용|Payment
     Payment-->|발송|VoteStatus
         subgraph 전자투표 결과
             VoteStatus-->|재발송|Resend
@@ -52,11 +52,15 @@ flowchart LR
     User([사용자])
     BizZone(정비구역)
     Union(조합)
+    Contract(계약)
     Member(일반가입자)
     UnionMember(조합가입자)
+    Board(조합게시판)
     UnionRegister(조합원)
     Address(주소록)
     Meet(총회)
+    Elector(선거인)
+    Vote(투표결과)
     Certificate(증명서)
     Promotion(홍보)
     Post(우편)
@@ -65,20 +69,33 @@ flowchart LR
     Counsel(상담)
     Agreement(동의서)
     Payment(결제)
+    CS(고객센터)
 
-    Admin-.->|정비구역 등록|BizZone
-    Admin-.->|비용설정|Payment
-    Admin-.->|조합관리|Union
-
-    BizZone-->|조합개설|Union
-    User-.->|회원가입|Member
-    Member-->|조합가입|Union
-    Union-->|서비스사용|Payment
     Union-->|가입승인|UnionMember
-    UnionMember-->|조합원명부등록|UnionRegister
-
-    UnionRegister-->|총회개설|Meet-->|총회종료|Certificate
-    Meet-->|홍보관리|Promotion
+    Admin-.->|고객센터 관리|CS
+    Admin-.->|정비구역 등록|BizZone
+    Admin-.->|비용설정|Contract
+    Admin-.->|조합관리|Union
+    
+    BizZone-->|조합개설|Union
+    subgraph 일반회원
+        User-.->|회원가입|Member
+        UnionMember
+    end
+    UnionMember-->|게시글|Board
+    UnionMember-->|조합원명부 등록|UnionRegister
+    subgraph 조합원
+        UnionRegister
+        UnionRegister-->|대리인 등록|UnionRegister
+        Elector
+    end
+    Member-->|조합가입|Union
+    Union-->|서비스 계약|Contract
+    Contract-->|월이용료|Payment
+    Union-->|서비스사용|Payment
+    Payment-->|환불처리|Payment
+    UnionRegister-->|총회개설|Meet-->|선거인 확정|Elector-->|투표|Vote-->|투표결과 증빙|Certificate
+    Elector-->|담당자 지정|Promotion
     UnionRegister-->|주소록관리|Address-->|우편발송|Post
     Address-->|자료발급|Document
     Address-->|문자발송|Sms
