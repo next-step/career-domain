@@ -119,6 +119,8 @@ flowchart LR
         Certificate(증명서)
         Meet(총회)
         Meet_Participant(선거인 명부)
+    end
+    subgraph 투표 
         Vote(투표):::red
     end
     subgraph 홍보요원
@@ -143,14 +145,107 @@ flowchart LR
     Union_Regi --> |총회 개설| Meet
     Meet --> |선거인 명부 생성| Meet_Participant
     Meet --> |증명서 발급| Certificate
-    Meet --> |투표| Vote
+    Meet --> |투표| 투표
     Meet --> |상담 관리| Consultation
     Vote --> |선거인 명부 정보| Meet_Participant
-    Certificate --> |투표 정보| Vote
+    Certificate --> |투표 정보| 투표
     Certificate --> |선거인 정보| Meet_Participant
     Promotion_Team -.- Promotion_Leader
     Promotion_Team -.- Promotion_Manager
     홍보요원 --> |팀장이 홍보 담당자 계정 발송| Sms
     홍보요원 --> |총회 정보| Meet
     홍보요원 --> |선거인 정보| Meet_Participant
+```
+### 리팩토링 2 포인트
+- 상담을 조합과 총회가 별도로 데이터를 갖도록 테이블 자체를 분리하는 컨셉
+- 조합과 총회를 아예 분리. 실제 프로세스는 조합원 명부를 기반으로 체크박스로 선택해서 선거인명부를 복사해서 총회에 선거인명부를 생성하는데 도메인 상으로는 크게 연관이 없는 것 같아 분리.
+  조합원 명부도 엑셀로 업로드하는데 선거인 명부도 그런 개념으로 생각해서 하면 분리가 된다고 생각
+- 문자, 자료, 우편을 별도의 제네릭한 느낌의 도메인으로 도출
+- 투표도 별도의 테이블이 있기 때문에 도출
+```mermaid
+flowchart LR
+%% Colors %%
+    classDef blue fill:#2374f7,stroke-width:0px,color:#fff
+    classDef green fill:#137433,stroke-width:0px,color:#fff
+    classDef red fill:#FF3399,stroke-width:0px,color:#fff
+    classDef orange fill:#FFB226,stroke-width:0px,color:#fff
+    classDef yellow fill:#CCCC00,stroke-width:0px,color:#fff
+    classDef violet fill:#6600CC,stroke-width:0px,color:#fff
+    
+    subgraph 조합
+        Union_Regi(조합원 명부)
+        Union_Member(조합 가입자)
+        Union(조합)
+        Union_Consultation(상담):::red
+        Agreement(동의서)
+        Zone(구역)
+    end
+    subgraph 조합업무
+        Sms(문자):::red
+        Materials(자료):::red
+        Post(우편):::red
+    end
+    
+    subgraph 회원 
+        Member(일반 회원)
+    end
+    subgraph CMS 
+        CMS(운영 관리)
+    end
+    
+    subgraph 총회
+        Meet(총회)
+        Meet_Participant(선거인 명부)
+        Meet_Consultation(상담):::red
+    end
+    subgraph 투표
+        Vote(투표):::red
+        Onsite_Vote((현장 투표)):::red
+        Elector_Vote((전자 투표)):::red
+        Vote -.- Onsite_Vote
+        Vote -.- Elector_Vote
+    end
+    subgraph 홍보요원
+        Promotion_Team(홍보 요원)
+        Promotion_Leader((홍보 팀장))
+        Promotion_Manager((홍보 담당자))
+        Promotion_Leader --> |선거인 배정| Promotion_Manager
+    end
+    subgraph 증명서
+        Certificate(증명서):::red
+    end
+    subgraph 결제 
+        Payment(결제):::red
+    end
+    
+    Member --> |조합 가입요청| Union
+    Member --> |조합 생성 요청| CMS
+    CMS --> |조합 생성| Union
+    Union --> |조합 가입 승인| Union_Member
+    Union --> |구역 정보| Zone
+    Union --> |명부 생성 - Excel| Union_Regi
+    Union --> |홍보 팀장 계정 발송| Generic:::red
+    Union --> |증명서 발급| 증명서
+    Union_Regi --> |우편 발송| 조합업무
+    Union_Regi --> |문자 발송| 조합업무
+    Union_Regi --> |자료 발급| 조합업무
+    Union_Regi --> |동의서 관리| Agreement
+    Union_Regi --> |상담 관리| Union_Consultation
+    Union_Regi --> |총회 개설| Meet
+    Meet --> |선거인 명부 생성| Meet_Participant
+    Meet --> |증명서 발급| 조합업무
+    Meet_Participant --> |현장 투표| 투표
+    Meet_Participant --> |전자 투표| 투표
+    Meet --> |상담 관리| Meet_Consultation
+    Meet_Participant --> |증명서 생성| 증명서
+    Promotion_Team -.- Promotion_Leader
+    Promotion_Team -.- Promotion_Manager
+    홍보요원 --> |팀장이 홍보 담당자 계정 발송| Generic:::red
+    홍보요원 --> |총회 정보| Meet
+    홍보요원 --> |선거인 정보| Meet_Participant
+    Union_Regi --> |총회 개설 비용 차감| Payment
+    조합업무 --> |비용 차감| Payment
+    CMS --> |충전| Payment
+
+%%    linkStyle 14,15,16,19,20,21,23,25 stroke-width:4px, stroke:red
 ```
