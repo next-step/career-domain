@@ -249,3 +249,31 @@ flowchart LR
 
 %%    linkStyle 14,15,16,19,20,21,23,25 stroke-width:4px, stroke:red
 ```
+### 최총 추상화
+```mermaid
+flowchart LR
+  Member(일반 회원)
+  Union(조합)
+  PromotionTeam(홍보 요원)
+  CMS((운영 시스템))
+  Meet(총회)
+  Vote(투표)
+  Payment(결제)
+  Certificate(증명서)
+
+  Member --> |조합 가입요청| Union
+  Member --> |조합 생성 요청| CMS
+  CMS --> |조합 생성| Union
+  Union --> |총회 증명서 발급| Certificate
+  Union --> |총회 개설| Meet
+  Union --> |예치금 충전 요청| CMS
+  Union --> |우편, 문자, 자료 비용 차감| Payment
+  Meet --> |총회 개설 비용 차감| Payment
+  Meet --> |현장 투표| Vote
+  Meet --> |전자 투표| Vote
+  Meet --> |총회 종료 시 증명서 생성| Certificate
+  PromotionTeam -.-> |총회 정보| Meet
+  PromotionTeam -.-> |선거인 정보| Meet
+  PromotionTeam --> |총회 관리| Meet
+  CMS --> |예치금 충전| Payment
+```
