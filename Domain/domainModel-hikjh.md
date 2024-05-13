@@ -2,7 +2,6 @@
 ## 상세 도메인 다이어 그램
 ```mermaid
 flowchart LR
-%% POSTPIA, 공공데이터 포털 -> Third Party
     Union(조합)
     UnionMember(조합가입자)
     UnionRegister(조합원)
@@ -26,30 +25,71 @@ flowchart LR
 ## 추상화 도메인 다이어그램
 ```mermaid
 flowchart LR
-    User(사용자)
-    Member(가입자)
-    Union(조합)
-    UnionMember(조합가입자)
-    UnionRegister(조합원 명부)
-    Meet(총회)
-    Post(우편)
-    Text(문자)
-    DataOrder(자료)
-    ServicePayment(서비스 요금)
+%% 핵심 도메인 - 색상:초록
+%% Member(회원)
+%% Union(조합)
+%%UnionRegister(조합원 명부)
+%%Counsel(상담)
+%%Meet(총회)
+%%Election(선거)
+%%Work(조합업무)
+%%Payment(결제)
 
-    User-->|회원 가입|Member
-    Member-->|조합 가입|Union
-    Member-->|조합 개설|Union
-    Union-->|가입 승인|UnionMember
-    UnionMember-->|명부 등록|UnionRegister
-    UnionMember-->|우편 발송|Post
-    UnionMember-->|문자 발송|Text
-    UnionMember-->설|자료 발급|DataOrder
-    UnionMember-->|총회 개설|Meet
+%% 서브도메인 - 색상:노랑
 
-    Union-->|요금 충전/환불|ServicePayment
-    Post & Text & DataOrder & Meet -...->|비용 결제| ServicePayment
+%% Colors %%
+classDef green fill:#40c057,stroke-width:0px,color:#fff
+classDef yellow fill:#ffd43b,stroke-width:0px,color:#fff
+
+    Member:::green
+    Member --- Role:::yellow
+    Member --> |조합 가입| Union
     
+    Union:::green
+    Union --> |회원 관리| Member
+    Union:::green --> |요금 충전| Payment
+    Union:::green --> |명부 등록| UnionRegister
+    Union:::green --> |발송/발급 업무| Work
+    Union:::green --> |총회 개설| Meet
+    Union:::green --> |상담| Counsel
+    Union --- BizZone:::yellow
+    Union --- Agreement:::yellow
+    Union --- DocumentFormat:::yellow
+    
+    UnionRegister:::green
+    UnionRegister:::green --> |총회 참석| Meet
+    UnionRegister --- AddressBook:::yellow
+    UnionRegister --- Agent:::yellow
+    UnionRegister --- Sharer:::yellow
+    
+    
+    Meet:::green
+    Meet:::green --> |선거 관리| Election
+    Meet:::green --> |비용 결제| Payment
+    Meet:::green --> |상담| Counsel
+    Meet --- MeetParticipant:::yellow
+    Meet --- Certification:::yellow
+    
+    Election:::green
+    Election:::green --> |투표 결과| Meet
+    Election --- Vote:::yellow
+    Election --- Electors:::yellow
+    Election --- PromotionUser:::yellow
+    
+    Work:::green
+    Work:::green --> |비용 결제| Payment
+    Work:::green --> |문자, 우편 발송/자료 발급| UnionRegister
+    Work --- Text:::yellow
+    Work --- Post:::yellow
+    Work --- Data:::yellow
+    
+    Payment:::green
+    Payment --- Charge:::yellow
+    Payment --- Use:::yellow
+
+    Counsel:::green
+    Counsel:::green --> |조합원 상담| UnionRegister
+    Counsel:::green --> |선거인 상담| MeetParticipant
 ```
 ## 상세 도메인(우편발송) ERD
 ```mermaid
