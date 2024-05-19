@@ -1,77 +1,68 @@
 # Domain model
 ## 상세 도메인 다이어 그램
 ```mermaid
-flowchart LR
+flowchart TD
+%% 회원
+    Member(회원)
+    Parent(부모)
+    Teacher(선생님)
 
-    registrationSheet(수업 주문서)
-
-    payment(결제)
-
-    lesson(수업)
-
-    scheduledLesson(예정된 수업)
-    completedLesson(완료된 수업)
-    cancelledLesson(취소된 수업)
-    abnormalLesson(비정상 수업)
-
-    lesson---lessonScheule(수업 일정)
-
-    registrationSheet---payment
-
-    lessionSubscribtion(수업 구독)
-    lessionSubscribtion-->|생성한다|lesson
-
-    review(수업 후기)
-    completedLesson---|후기를 작성한다|review
-    lessionSubscribtion-->|생성한다|registrationSheet
-    abnormalLesson---|부분환불|payment
-
-    subgraph 수업상태
-        direction LR
-        lesson-->|예정된다|scheduledLesson
-        lesson-->|완료된다|completedLesson
-        lesson-->|취소한다|cancelledLesson
-        lesson-->|지각한다|abnormalLesson
-    end
-    subgraph 수업일정 상태
-        direction LR
-        lessonScheule-->|변경한다|rescheduledLessonSchedule(변경된 수업 일정)
-        lessonScheule---scheduledLessonScheule(정상 수업 일정)
-    end
-```
-## 추상화 도메인 다이어그램
-```mermaid
-flowchart LR
+%% 구독
     registration(수업신청서)
-    registrationSheet(수업 주문서)
+    subscription(수업 구독)
 
-    teacher(선생님)
-    wage(시급)
-    curriculum(커리큘럼)
+%% 수업
+    LessonEvent(수업 이벤트)
+    LessonCalendar(수업 캘린더)
+    LessonPlan(수업 비용)
+    LessonPlace(수업 장소)
+    LessonScheduleRecurring(수업 일정 반복)
+    LessonPayment(결제)
+    LessonTime(수업 시간)
 
-    parent(부모님)
-    child(아이)
+%% 회원의 신청서 접수
+    Member --> Parent
+    Member --> Teacher
+    Parent -->|접수| registration
+    Teacher -->|지원| registration
 
-    recommendation(추천시스템)
+%% 매칭 후 구독 생성
+    registration -->|매칭성공| subscription
 
-    payment(결제)
+    subgraph 구독
+        direction TB
+        subscription --- LessonPlan
+        subscription --- LessonScheduleRecurring
 
-    lesson(수업)
-    lessonSchedule(수업 일정)
-    lessonReview(수업 후기)
+    %% style
+        style LessonPlan stroke:#f66
+        style LessonScheduleRecurring stroke:#f66
+    end
 
-    registration---lesson
-    registration---registrationSheet
-    registration---teacher
-    registration---parent---child
+    subgraph payment[결제]
+        subscription -->|결제, 부분환불| LessonPayment
+    end
 
-    teacher---wage
-    teacher---curriculum
+    subgraph 일정관리
+        subscription -->|수업 이벤트 생성, 삭제 요청| LessonCalendar
+        LessonCalendar -->|수업 등록, 변경, 삭제, 완료| LessonEvent
+        subgraph lessonEvent
+            LessonEvent --- LessonPlace
+            LessonEvent --- LessonTime
+            LessonEvent --- LessonEventTeacher(선생님)
+            LessonEvent --- LessonEventChild(학생)
 
-    registrationSheet---payment
+        %% style
+            style LessonPlace stroke:#f66
+            style LessonTime stroke:#f66
+            style LessonEventTeacher stroke:#f66
+            style LessonEventChild stroke:#f66
+        end
+    end
 
-
-    lesson---lessonReview
-    lesson---lessonSchedule
+%% 회원의 일정 관리
+    member(회원) -->|일정 취소, 변경| 일정관리
+%% 회원의 주문 클레임
+    일정관리 -->|부분환불| payment
 
 ```
